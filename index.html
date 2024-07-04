@@ -1,0 +1,69 @@
+<title>首页</title>
+<link rel="stylesheet" href="./style.css">
+<h5>您的账户余额是 <span id="amount">&&&amount&&&</span></h5>
+<!--<button id="button">付款 1块钱</button>-->
+<!--<form action="/pay" method="POST" target="result">
+    <input type="text" name="number" value="1">
+    <input type="submit" value="付款">
+</form>
+<script>
+    button.addEventListener('click', (e)=>{
+        let n = amount.innerText //string
+        let number = parseInt(n,10)
+        let newNumber = number - 1
+        amount.innerText = newNumber
+
+    })
+</script>
+
+<iframe name="result" src="about:blank" frameborder="0" height="200"></iframe>-->
+<button id="button">打钱</button>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    button.addEventListener('click', (e) => {
+        /*image发请求法（GET）请求
+        let image = document.createElement('img')
+        image.src = '/pay'
+        image.onload = function(){
+            alert('打钱成功')
+            amount.innerText = amount.innerText - 1 
+        }
+        image.onerror = function(){
+            alert('打钱失败')
+        }*/
+        /*SRJ 服务器返回的javaScript*/
+
+        /*let script = document.createElement('script')
+        let functionName = 'frank' + parseInt(Math.random() * 10000, 10)
+        //frank123456789
+        window[functionName] = function (result) {
+            if (result === 'success') {
+                amount.innerText = amount.innerText - 1
+            } else {
+
+            }
+        }
+        script.src = 'http://jack.com:8002/pay?callback=' + functionName
+        document.body.appendChild(script)
+        script.onload = function (e) {
+            e.currentTarget.remove()
+            delete window[functionName]
+        }
+
+        script.onerror = function (e) {
+            alert('fail')
+            e.currentTarget.remove()
+            delete window[functionName]
+        }*/
+        $.ajax({
+            url: "http://jack.com:8002/pay",
+            dataType: "jsonp",
+            success: function (response) {
+                if(response === 'success'){
+                    amount.innerText = amount.innerText - 1 
+                }
+            }
+
+        })
+    })
+</script>
